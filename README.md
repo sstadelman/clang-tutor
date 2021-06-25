@@ -66,16 +66,18 @@ header files. This may lead to some surprising results!
 You can build and run **HelloWorld** like this:
 
 ```bash
+# Set the `CT_LLVM_INSTALL_DIR` value in CMakeLists.txt in root of repo
+set(CT_LLVM_INSTALL_DIR "/usr/local/Cellar/llvm/12.0.0_1" CACHE PATH "LLVM installation directory")
+
 # Build the plugin
-export LLVM_DIR=/usr/bin
+export CLANG_DIR=/usr/local/Cellar/llvm/12.0.0_1/bin
 export CLANG_TUTOR_DIR=/Users/sstadelman/github/sstadelman/clang-tutor
 export CMAKE_PREFIX_PATH=/usr/local/Cellar/llvm/12.0.0_1/lib/cmake
 mkdir build
-cd build
-cmake -DCT_LLVM_INSTALL_DIR=$LLVM_DIR cmake -DCMAKE_PREFIX_PATH=$CMAKE_PREFIX_PATH $CLANG_TUTOR_DIR/HelloWorld/
-make
+cmake HelloWorld
+make HelloWorld
 # Run the plugin
-$LLVM_DIR/bin/clang -cc1 -load ./libHelloWorld.{so|dylib} -plugin hello-world $CLANG_TUTOR_DIR/test/HelloWorld-basic.cpp
+$CLANG_DIR/clang -cc1 -load ./libHelloWorld.dylib -plugin hello-world $CLANG_TUTOR_DIR/test/HelloWorld-basic.cpp
 ```
 
 You should see the following output:
