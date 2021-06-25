@@ -67,11 +67,12 @@ You can build and run **HelloWorld** like this:
 
 ```bash
 # Build the plugin
-export LLVM_DIR=<installation/dir/of/clang/12>
-export CLANG_TUTOR_DIR=<source/dir/clang/tutor>
+export LLVM_DIR=/usr/bin
+export CLANG_TUTOR_DIR=/Users/sstadelman/github/sstadelman/clang-tutor
+export CMAKE_PREFIX_PATH=/usr/local/Cellar/llvm/12.0.0_1/lib/cmake
 mkdir build
 cd build
-cmake -DCT_LLVM_INSTALL_DIR=$LLVM_DIR $CLANG_TUTOR_DIR/HelloWorld/
+cmake -DCT_LLVM_INSTALL_DIR=$LLVM_DIR cmake -DCMAKE_PREFIX_PATH=$CMAKE_PREFIX_PATH $CLANG_TUTOR_DIR/HelloWorld/
 make
 # Run the plugin
 $LLVM_DIR/bin/clang -cc1 -load ./libHelloWorld.{so|dylib} -plugin hello-world $CLANG_TUTOR_DIR/test/HelloWorld-basic.cpp
