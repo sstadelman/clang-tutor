@@ -77,7 +77,10 @@ mkdir build
 cmake HelloWorld
 make HelloWorld
 # Run the plugin
-$CLANG_DIR/clang -cc1 -load ./libHelloWorld.dylib -plugin hello-world $CLANG_TUTOR_DIR/test/HelloWorld-basic.cpp
+$CLANG_DIR/clang -cc1 \
+ -load ./libHelloWorld.dylib \
+ -plugin hello-world \
+ $CLANG_TUTOR_DIR/test/HelloWorld-basic.cpp
 ```
 
 You should see the following output:
@@ -103,7 +106,11 @@ When running a Clang plugin on a C++ file that includes headers from STL, it is
 easier to run it with `clang++` (rather than `clang -cc1`) like this:
 
 ```bash
-$LLVM_DIR/bin/clang++ -c -Xclang -load -Xclang libHelloWorld.dylib -Xclang -plugin -Xclang hello-world file.cpp
+$CLANG_DIR/clang++ -c \
+ -Xclang -load \
+ -Xclang libHelloWorld.dylib \
+ -Xclang -plugin \
+ -Xclang hello-world file.cpp
 ```
 
 This way you can be confident that all the necessary include paths (required to
